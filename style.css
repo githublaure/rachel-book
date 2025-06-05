@@ -1,6 +1,9 @@
 /* -------------------- GLOBAL -------------------- */
 html, body {
-  height: 100%;
+  height: auto;
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto; /* ✅ permet de scroller en ligne */
   margin: 0;
   padding: 0;
   font-family: 'Georgia', serif;
@@ -39,12 +42,17 @@ button:hover, select:hover {
   align-items: center;
   justify-content: center;
   position: relative;
-  overflow: hidden;
   background: transparent;
   gap: 0;
   z-index: 1;
   flex-wrap: nowrap;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  height: auto;
+  max-width: 100vw;
 }
+
+
 
 /* -------------------- PAGE -------------------- */
 .page {
@@ -297,4 +305,23 @@ body.pink .page::after {
 
 body.magic .page::after {
   background: radial-gradient(closest-side, rgba(112, 8, 176, 0.9), transparent);
+}
+
+#book.fullscreen {
+  overflow-y: auto; /* ✅ permet le scroll */
+  align-items: flex-start;
+}
+
+#book {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: visible;
+  background: transparent;
+  gap: 0;
+  flex-wrap: nowrap;
+  width: auto;
+  height: auto;
+  flex-direction: row; /* Valeur par défaut */
 }

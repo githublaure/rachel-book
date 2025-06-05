@@ -11,22 +11,50 @@ const pages = [
   ['images/backcover.png']
 ];
 
-
-
-
 let currentIndex = 0;
 
 const book = document.getElementById('book');
 const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
+const firstBtn = document.getElementById('firstBtn');
+const lastBtn = document.getElementById('lastBtn');
 const themeSelector = document.getElementById('themeSelector');
 const fullscreenBtn = document.getElementById('fullscreenBtn');
+const pageInput = document.getElementById('pageInput');
+const pageTotal = document.getElementById('pageTotal');
 
-// ✅ Assurer que le thème par défaut est appliqué
+// ✅ Appliquer le thème "light" par défaut
 if (!document.body.className) {
   document.body.classList.add('light');
   themeSelector.value = 'light';
 }
+
+// ✅ Met à jour l'affichage du numéro de page
+function updatePageIndicator() {
+  if (pageInput) pageInput.value = currentIndex + 1;
+  if (pageTotal) pageTotal.textContent = pages.length;
+}
+
+// ✅ Changer de page depuis input
+if (pageInput) {
+  pageInput.addEventListener('change', () => {
+    const value = parseInt(pageInput.value, 10);
+    if (!isNaN(value) && value >= 1 && value <= pages.length) {
+      goToPage(value - 1);
+    } else {
+      updatePageIndicator();
+    }
+  });
+}
+
+// ✅ Navigation clavier
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' && currentIndex < pages.length - 1) {
+    goToPage(currentIndex + 1);
+  } else if (e.key === 'ArrowLeft' && currentIndex > 0) {
+    goToPage(currentIndex - 1);
+  }
+});
 
 function renderPages() {
   book.innerHTML = '';
@@ -39,11 +67,9 @@ function renderPages() {
 
   const spread = pages[currentIndex];
 
-  // Classes principales
   book.classList.remove('singlepage', 'twopages');
   book.classList.add(spread.length === 1 ? 'singlepage' : 'twopages');
 
-  // Affichage des pages
   spread.forEach((src, i) => {
     const page = document.createElement('div');
     page.className = 'page';
@@ -62,15 +88,17 @@ function renderPages() {
     page.appendChild(img);
 
     book.appendChild(page);
-
     setTimeout(() => page.classList.add('visible'), 10);
   });
 
-  // ⚠️ corriger l'espacement entre les pages
-  book.style.justifyContent = 'center';
+  book.style.flexDirection = spread.length === 2 ? 'row' : 'column';
+
+  updatePageIndicator();
 }
 
 function goToPage(index) {
+  if (index < 0 || index >= pages.length) return;
+
   const oldPages = document.querySelectorAll('.page');
   oldPages.forEach(p => {
     p.classList.remove('visible');
@@ -83,6 +111,7 @@ function goToPage(index) {
   }, 400);
 }
 
+// ✅ Navigation par clic
 prevBtn.addEventListener('click', () => {
   if (currentIndex > 0) goToPage(currentIndex - 1);
 });
@@ -95,18 +124,20 @@ book.addEventListener('click', (e) => {
   const rect = book.getBoundingClientRect();
   const clickX = e.clientX - rect.left;
 
-  if (clickX < rect.width / 2) {
-    if (currentIndex > 0) goToPage(currentIndex - 1);
-  } else {
-    if (currentIndex < pages.length - 1) goToPage(currentIndex + 1);
+  if (clickX < rect.width / 2 && currentIndex > 0) {
+    goToPage(currentIndex - 1);
+  } else if (clickX >= rect.width / 2 && currentIndex < pages.length - 1) {
+    goToPage(currentIndex + 1);
   }
 });
 
+// ✅ Changement de thème
 themeSelector.addEventListener('change', () => {
   document.body.className = themeSelector.value;
   renderPages();
 });
 
+// ✅ Plein écran
 fullscreenBtn.addEventListener('click', () => {
   if (!document.fullscreenElement) {
     book.classList.add('fullscreen');
@@ -117,6 +148,15 @@ fullscreenBtn.addEventListener('click', () => {
     });
   }
 });
+firstBtn.addEventListener('click', () => {
+  goToPage(0);
+});
+
+lastBtn.addEventListener('click', () => {
+  goToPage(pages.length - 1);
+});
+
+
 
 document.addEventListener('fullscreenchange', () => {
   if (!document.fullscreenElement) {
@@ -125,4 +165,5 @@ document.addEventListener('fullscreenchange', () => {
   }
 });
 
+// ✅ Initialisation
 renderPages();

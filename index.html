@@ -7,26 +7,37 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
 <br><br><br><br><br>
+
+<span id="pageIndicator">
+  <input id="pageInput" type="number" min="1" style="width: 50px; text-align: center;" /> /
+  <span id="pageTotal"></span>
+</span>
+
 <div class="toolbar">
+  <button id="firstBtn">⏮</button>
   <button id="prevBtn">←</button>
-<select id="themeSelector">
-  <option value="light">🌞 Jour</option>
-  <option value="night">🌙 Nuit</option>
-  <option value="magic">🪄 Magique</option>
-  <option value="blue">💧 Bleu</option>
-  <option value="green">🌿 Vert</option>
-  <option value="pink">🌸 Rose</option>
-</select>
+  
+  <select id="themeSelector">
+    <option value="light">🌞 Jour</option>
+    <option value="night">🌙 Nuit</option>
+    <option value="magic">🪄 Magique</option>
+    <option value="blue">💧 Bleu</option>
+    <option value="green">🌿 Vert</option>
+    <option value="pink">🌸 Rose</option>
+  </select>
 
   <button id="fullscreenBtn">⛶ Plein écran</button>
   <button id="nextBtn">→</button>
+  <button id="lastBtn">⏭</button>
 </div>
+
+<!-- 🔧 Ceci était manquant -->
 <div class="book-frame">
   <div id="book"></div>
 </div>
 
-
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
