@@ -1,0 +1,300 @@
+/* -------------------- GLOBAL -------------------- */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Georgia', serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+  background: #fff9f2;
+  transition: background 0.4s ease;
+}
+
+/* Toolbar */
+.toolbar {
+  margin: 20px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+button, select {
+  padding: 10px 15px;
+  font-size: 16px;
+  border: none;
+  background: #ffe7c4;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+button:hover, select:hover {
+  background: #fdd9a8;
+}
+
+/* -------------------- BOOK WRAPPER -------------------- */
+#book {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background: transparent;
+  gap: 0;
+  z-index: 1;
+  flex-wrap: nowrap;
+}
+
+/* -------------------- PAGE -------------------- */
+.page {
+  width: 512px;
+  aspect-ratio: 2 / 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  transform-origin: center left;
+  transform: rotateY(0deg);
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+/* -------------------- IMAGE -------------------- */
+.page-img {
+  width: 100%;
+  height: auto;
+  max-height: 100vh;
+  object-fit: contain;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+/* -------------------- PAGE EFFECTS -------------------- */
+.page.visible {
+  opacity: 1;
+}
+.page.turning {
+  transform: rotateY(-90deg);
+  opacity: 0;
+}
+.page::after {
+  content: '';
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  background: radial-gradient(closest-side, rgba(0, 0, 0, 0.88), transparent);
+  clip-path: polygon(100% 100%, 0% 100%, 100% 0%);
+  pointer-events: none;
+  opacity: 0.8;
+  transition: opacity 0.3s;
+}
+.page:hover::after { opacity: 0.6; }
+.page.right::after { right: 0; bottom: 0; }
+.page.left::after { left: 0; bottom: 0; transform: rotate(90deg); }
+.page.solo::after { right: 0; bottom: 0; }
+
+/* -------------------- THEMES -------------------- */
+body.magic {
+  background: radial-gradient(#1a0136 0%, #000 100%);
+  background-attachment: fixed;
+  background-size: cover;
+  min-height: 100vh;
+}
+body.night { background: #1b1b1b; }
+body.blue  { background: #d0e7ff; }
+body.green { background: #d7f9e5; }
+body.pink  { background: #ffe0f0; }
+
+body.light #book,
+body.light #book.fullscreen { background: #fff9f2; }
+body.blue #book,
+body.blue #book.fullscreen { background: #d0e7ff; }
+body.green #book,
+body.green #book.fullscreen { background: #d7f9e5; }
+body.pink #book,
+body.pink #book.fullscreen { background: #ffe0f0; }
+body.night #book,
+body.night #book.fullscreen { background: #2b2b2b; }
+
+body.magic #book,
+body.magic #book.fullscreen {
+  background: transparent;
+  border: 2px solid #9c6cd3;
+  box-shadow: 0 0 30px #d99cff;
+  border-radius: 12px;
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+/* -------------------- GLOW & STARFIELD -------------------- */
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 20px #d99cff; }
+  50%      { box-shadow: 0 0 40px #e7caff; }
+}
+
+body.magic .starfield {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('images/stars.gif') repeat;
+  animation: moveStars 60s linear infinite;
+  opacity: 0.2;
+  z-index: 0;
+  pointer-events: none;
+}
+
+@keyframes moveStars {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(-50%, -50%); }
+}
+
+/* -------------------- FAUX PLI CENTRAL -------------------- */
+#book.twopages {
+  position: relative;
+}
+#book.twopages::before {
+  content: '';
+  position: absolute;
+  top: 5%;
+  bottom: 5%;
+  left: 50%;
+  width: 80px;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0.5), transparent 70%);
+  z-index: 2;
+  pointer-events: none;
+  filter: blur(3px);
+  opacity: 0.8;
+  border-radius: 50%;
+}
+#book.fullscreen.twopages::before {
+  display: none;
+}
+
+/* -------------------- FULLSCREEN MODE -------------------- */
+#book.fullscreen.twopages {
+  gap: 0 !important;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+#book.fullscreen .page {
+  width: 50vw;
+  height: 100vh;
+  max-height: 100vh;
+  margin: 0;
+  padding: 0;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#book.fullscreen .page-img {
+  max-height: 100vh;
+}
+
+/* -------------------- RESPONSIVE -------------------- */
+@media (max-width: 768px) {
+  #book {
+    flex-direction: column;
+  }
+  .page {
+    width: 90vw;
+    aspect-ratio: 2 / 3;
+    max-height: 85vh;
+  }
+  .page-img {
+    object-fit: contain;
+  }
+}
+
+@media (orientation: portrait) {
+  #book.fullscreen {
+    height: auto;
+    max-height: 100vh;
+  }
+  #book.fullscreen .page {
+    width: 90vw;
+    max-height: 85vh;
+  }
+}
+
+/* -------------------- WRAPPER OPTIONNEL -------------------- */
+.book-frame {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: inherit;
+  overflow: hidden;
+  position: relative;
+}
+
+
+.page::after {
+  content: '';
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  clip-path: polygon(100% 100%, 0% 100%, 100% 0%);
+  pointer-events: none;
+  opacity: 0.3;
+  transition: opacity 0.3s;
+  z-index: 1;
+}
+
+.page:hover::after {
+  opacity: 0.6;
+}
+
+.page.right::after {
+  right: 0;
+  bottom: 0;
+}
+.page.left::after {
+  left: 0;
+  bottom: 0;
+  transform: rotate(90deg);
+}
+.page.solo::after {
+  right: 0;
+  bottom: 0;
+}
+
+/* ----------------- THÈME : coin corné par ambiance ----------------- */
+body.light .page::after {
+  background: radial-gradient(closest-side, rgba(255, 211, 164, 0.9), transparent);
+}
+
+body.night .page::after {
+  background: radial-gradient(closest-side, rgba(0, 0, 0, 0.9), transparent);
+}
+
+body.blue .page::after {
+  background: radial-gradient(closest-side, rgba(3, 129, 255, 0.9), transparent);
+}
+
+body.green .page::after {
+  background: radial-gradient(closest-side, rgba(11, 143, 77, 0.9), transparent);
+}
+
+body.pink .page::after {
+  background: radial-gradient(closest-side, rgba(165, 28, 76, 0.9), transparent);
+}
+
+body.magic .page::after {
+  background: radial-gradient(closest-side, rgba(112, 8, 176, 0.9), transparent);
+}
