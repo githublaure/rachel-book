@@ -359,3 +359,42 @@ body.magic .page::after {
     transform-origin: left;
   }
 }
+
+
+.about-box {
+  max-width: 600px;
+  margin: 30px auto 20px;
+  padding: 20px 30px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  font-family: 'Georgia', serif;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  position: relative;
+  backdrop-filter: blur(5px);
+  transition: background 0.4s ease;
+}
+
+body.night .about-box {
+  background: rgba(30, 30, 30, 0.6);
+  color: #eee;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+body.magic .about-box {
+  background: rgba(64, 0, 128, 0.3);
+  border-color: #d99cff;
+  color: #f7eaff;
+  box-shadow: 0 0 15px #d99cff;
+}
+
+.arabesque {
+  font-size: 30px;
+  color: #999;
+  margin: 10px 0;
+}
+
+.arabesque.rotated {
+  transform: rotate(180deg);
+}

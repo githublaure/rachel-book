@@ -1,5 +1,6 @@
 const pages = [
   ['images/cover.png'],
+    ['images/intro1.png', 'images/intro2.png'],
   ['images/page1.png', 'images/page2.png'],
   ['images/page3.png', 'images/page4.png'],
   ['images/page5.png', 'images/page6.png'],
@@ -8,6 +9,7 @@ const pages = [
   ['images/page11.png', 'images/page12.png'],
   ['images/page13.png', 'images/page14.png'],
   ['images/page15.png', 'images/page16.png'],
+    ['images/page17.png', 'images/page18.png'],
   ['images/backcover.png']
 ];
 
