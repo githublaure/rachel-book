@@ -398,3 +398,36 @@ body.magic .about-box {
 .arabesque.rotated {
   transform: rotate(180deg);
 }
+.intro-card {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 30px 20px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  font-family: 'Georgia', serif;
+  position: relative;
+  border: 2px dashed rgba(0, 0, 0, 0.1);
+}
+
+.intro-card h2 {
+  font-size: 1.8em;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #2b2b2b;
+}
+
+.intro-card p {
+  font-size: 1.1em;
+  color: #333;
+  line-height: 1.6;
+}
+
+.decor-top,
+.decor-bottom {
+  font-size: 1.4em;
+  color: #a3a3a3;
+  margin: 10px 0;
+  letter-spacing: 4px;
+}
