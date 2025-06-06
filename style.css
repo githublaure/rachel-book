@@ -164,6 +164,8 @@ body.magic .starfield {
 }
 
 /* -------------------- FAUX PLI CENTRAL -------------------- */
+/* --- Faux pli central : affiché seulement en mode desktop avec deux pages --- */
+
 #book.twopages {
   position: relative;
 }
@@ -182,6 +184,10 @@ body.magic .starfield {
   opacity: 0.8;
   border-radius: 50%;
 }
+
+
+
+
 #book.fullscreen.twopages::before {
   display: none;
 }
@@ -496,4 +502,80 @@ body.pink .arabesque-line {
 
 .button:hover {
   background: #fdd9a8;
+}
+@media (max-width: 600px) {
+  .toolbar {
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 10px;
+  }
+
+  .toolbar button,
+  .toolbar select,
+  .toolbar .button {
+    flex: 1 1 40%;
+    margin: 5px 4px;
+    font-size: 15px;
+  }
+
+  #pageIndicator {
+    margin: 10px auto;
+    font-size: 16px;
+  }
+
+  .about-box,
+  .intro-card {
+    padding: 15px 10px;
+    margin: 20px 10px;
+    font-size: 0.95em;
+  }
+
+  .intro-card h2 {
+    font-size: 1.4em;
+  }
+
+  .intro-card p {
+    font-size: 1em;
+  }
+
+  .arabesque-line {
+    font-size: 1.2em;
+    letter-spacing: 3px;
+  }
+
+  .book-frame {
+    height: auto;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 10px;
+  }
+
+  #book {
+    flex-direction: column !important;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .page {
+    width: 90vw;
+    max-width: 100%;
+    max-height: 80vh;
+  }
+
+  .page-img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+}
+@media (max-width: 600px) {
+  .about-box {
+    margin: 40px 20px 30px;
+  }
+}
+/* Masquer le faux pli central en mode mobile (écran étroit) */
+@media (max-width: 768px) {
+  #book.twopages::before {
+    display: none !important;
+  }
 }
