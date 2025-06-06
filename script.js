@@ -152,20 +152,33 @@ book.addEventListener('click', (e) => {
   const pagesOnScreen = book.querySelectorAll('.page');
   pagesOnScreen.forEach(p => p.classList.remove('turning-left', 'turning-right'));
 
-  if (clickX < rect.width / 2 && currentIndex > 0) {
-    if (pages[currentIndex].length === 1) {
-      pagesOnScreen[0]?.classList.add('turning-left');
+  const isLastPage = currentIndex === pages.length - 1;
+  const isFirstPage = currentIndex === 0;
+
+  if (clickX < rect.width / 2) {
+    // Clic gauche
+    if (isFirstPage) {
+      goToPage(pages.length - 1); // Aller à la fin si on est en début
     } else {
-      pagesOnScreen[0]?.classList.add('turning-left');
+      if (pages[currentIndex].length === 1) {
+        pagesOnScreen[0]?.classList.add('turning-left');
+      } else {
+        pagesOnScreen[0]?.classList.add('turning-left');
+      }
+      goToPage(currentIndex - 1);
     }
-    goToPage(currentIndex - 1);
-  } else if (clickX >= rect.width / 2 && currentIndex < pages.length - 1) {
-    if (pages[currentIndex].length === 1) {
-      pagesOnScreen[0]?.classList.add('turning-right');
+  } else {
+    // Clic droit
+    if (isLastPage) {
+      goToPage(0); // Revenir au début si on est à la fin
     } else {
-      pagesOnScreen[1]?.classList.add('turning-right');
+      if (pages[currentIndex].length === 1) {
+        pagesOnScreen[0]?.classList.add('turning-right');
+      } else {
+        pagesOnScreen[1]?.classList.add('turning-right');
+      }
+      goToPage(currentIndex + 1);
     }
-    goToPage(currentIndex + 1);
   }
 });
 

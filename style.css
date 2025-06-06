@@ -431,3 +431,69 @@ body.magic .about-box {
   margin: 10px 0;
   letter-spacing: 4px;
 }
+
+.arabesque-line {
+  font-size: 1.4em;
+  margin: 18px 0;
+  letter-spacing: 5px;
+  transition: color 0.3s ease;
+}
+
+/* Thème clair (par défaut) */
+body.light .arabesque-line {
+  color: #aaa;
+}
+
+/* Thème nuit */
+body.night .arabesque-line {
+  color: #ccc;
+}
+
+/* Thème magique */
+body.magic .arabesque-line {
+  color: #d99cff;
+}
+
+/* Thème bleu */
+body.blue .arabesque-line {
+  color: #5390d9;
+}
+
+/* Thème vert */
+body.green .arabesque-line {
+  color: #4ba867;
+}
+
+/* Thème rose */
+body.pink .arabesque-line {
+  color: #d97ca7;
+}
+.coloring-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  padding: 40px;
+}
+
+.coloring-gallery img {
+  width: 300px;
+  border: 2px dashed #aaa;
+  border-radius: 10px;
+  background: #fff;
+}
+.button {
+  padding: 10px 15px;
+  font-size: 16px;
+  background: #ffe7c4;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.3s ease;
+}
+
+.button:hover {
+  background: #fdd9a8;
+}
