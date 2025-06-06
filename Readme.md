@@ -19,4 +19,4 @@ L’histoire suit **Rachel**, une raton laveur originale à la fourrure argenté
 1. **Cloner le dépôt** :
    ```bash
    git clone https://github.com/githublaure/rachel-book.git
-   cd aventures-de-rachel
+   cd rachel-book
